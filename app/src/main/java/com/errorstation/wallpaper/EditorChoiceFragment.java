@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.analytics.HitBuilders;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 
@@ -30,6 +31,7 @@ public class EditorChoiceFragment extends Fragment {
     private List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
     ProgressBar progressBar;
     private FirebaseAnalytics mFirebaseAnalytics;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,9 +45,7 @@ public class EditorChoiceFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
-        /*GoogleAnalyticsData.tracker().send(new HitBuilders.EventBuilder("First Page", "Open")
-                .setLabel("Category")
-                .build());*/
+
 
         progressBar.setVisibility(View.VISIBLE);
         API.Factory.getInstance().getEditorWallpaper().enqueue(new Callback<Wallpaper>() {

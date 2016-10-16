@@ -36,11 +36,13 @@ class GridAdapter extends BaseAdapter
     List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
     LayoutInflater inflater;
 
+
     public GridAdapter(Context context, List<Wallpaper_> wallpapers) {
         this.context = context;
         this.wallpapers = wallpapers;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+
     }
 
     @Override
@@ -64,7 +66,6 @@ class GridAdapter extends BaseAdapter
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.grid_item, parent, false);
         holder.img = (ImageView) convertView.findViewById(R.id.imgv);
-        holder.viewCount = (TextView) convertView.findViewById(R.id.viewCountTV);
 
         final String thumb = wallpapers.get(position).getThumb();
 
@@ -82,7 +83,6 @@ class GridAdapter extends BaseAdapter
 
                     @Override
                     public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        holder.viewCount.setText(wallpapers.get(position).getViews());
                         return false;
                     }
                 })
@@ -108,6 +108,7 @@ class GridAdapter extends BaseAdapter
                 intent.putExtra("source", wallpapers.get(position).getSource());
                 intent.putExtra("category", wallpapers.get(position).getCategory());
                 intent.putExtra("picID", wallpapers.get(position).getPicid());
+                intent.putExtra("view",wallpapers.get(position).getViews());
 
 
                 /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -117,10 +118,10 @@ class GridAdapter extends BaseAdapter
                     Bundle bundle1 = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, holder.img, holder.img.getTransitionName()).toBundle();
                     startActivity(intent, bundle1);
                 } else {*/
-                    /*GoogleAnalyticsData.tracker().send(new HitBuilders.EventBuilder(thumb, "thumb_Preview")
+                    /*googleAnalyticsData.tracker().send(new HitBuilders.EventBuilder(thumb, "thumb_Preview")
                             .setLabel("Image")
-                            .build());*/
-
+                            .build());
+*/
                     context.startActivity(intent);
                // }
 
@@ -134,7 +135,7 @@ class GridAdapter extends BaseAdapter
 
     public class Holder {
         ImageView img;
-        TextView viewCount;
+
     }
 
 
