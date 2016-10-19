@@ -10,5 +10,5 @@
         android:elevation="6dp"
         android:gravity="center"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
+        android:background="@mipmap/ic_launcher"
         android:textColor="#afff" />
