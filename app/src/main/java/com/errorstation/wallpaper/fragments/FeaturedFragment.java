@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.errorstation.wallpaper.R;
-import com.errorstation.wallpaper.adapters.DividerItemDecoration;
-import com.errorstation.wallpaper.adapters.GridAdapter;
 import com.errorstation.wallpaper.adapters.RecyclerAdapter;
 import com.errorstation.wallpaper.api.API;
 import com.errorstation.wallpaper.api.Wallpaper;
@@ -53,14 +51,10 @@ public class FeaturedFragment extends Fragment {
                 wallpapers.clear();
                 wallpapers = response.body().getWallpaper();
                 RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(),wallpapers);
-                /*RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-                beachRV.setLayoutManager(mLayoutManager);*/
                 LinearLayoutManager layoutManager
                         = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 beachRV.setLayoutManager(layoutManager);
-                beachRV.setLayoutManager(layoutManager);
-                beachRV.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.HORIZONTAL));
-                beachRV.setHasFixedSize(true);
+
                 beachRV.setAdapter(beachAdapter);
 
             }
