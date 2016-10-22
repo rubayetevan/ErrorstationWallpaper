@@ -1,7 +1,6 @@
-package com.errorstation.wallpaper;
+package com.errorstation.wallpaper.adapters;
 
 import android.annotation.TargetApi;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -11,13 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.google.android.gms.analytics.HitBuilders;
+import com.errorstation.wallpaper.activities.DetailsActivity;
+import com.errorstation.wallpaper.R;
+import com.errorstation.wallpaper.api.Wallpaper_;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 
@@ -28,7 +28,7 @@ import java.util.List;
  * Created by Rubayet on 15-Oct-16.
  */
 
-class GridAdapter extends BaseAdapter
+public class GridAdapter extends BaseAdapter
 
 {
     FirebaseAnalytics mFirebaseAnalytics;

@@ -1,4 +1,4 @@
-package com.errorstation.wallpaper;
+package com.errorstation.wallpaper.utilities;
 
 import android.app.Application;
 

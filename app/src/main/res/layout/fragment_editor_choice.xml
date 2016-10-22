@@ -4,7 +4,7 @@
     android:layout_height="fill_parent"
     android:padding="10dp"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
     <ProgressBar
         android:layout_gravity = "center"
         android:id="@+id/progressBar"
@@ -22,5 +22,5 @@
         android:clipToPadding="false"
         android:numColumns="3"
         android:scrollbarStyle="outsideOverlay"
-        tools:context=".MainActivity" />
+        tools:context=".activities.MainActivity" />
 </FrameLayout>

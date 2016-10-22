@@ -1,4 +1,4 @@
-package com.errorstation.wallpaper;
+package com.errorstation.wallpaper.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -11,6 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.errorstation.wallpaper.R;
+import com.errorstation.wallpaper.adapters.ViewPagerAdapter;
+import com.errorstation.wallpaper.fragments.EditorChoiceFragment;
+import com.errorstation.wallpaper.fragments.FeaturedFragment;
+import com.errorstation.wallpaper.fragments.LikedFragment;
+import com.errorstation.wallpaper.fragments.PopularFragment;
+import com.errorstation.wallpaper.fragments.TrendingFragment;
 
 
 public class MainActivity extends AppCompatActivity

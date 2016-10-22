@@ -1,4 +1,4 @@
-package com.errorstation.wallpaper;
+package com.errorstation.wallpaper.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 
-import com.google.android.gms.analytics.HitBuilders;
+import com.errorstation.wallpaper.R;
+import com.errorstation.wallpaper.adapters.GridAdapter;
+import com.errorstation.wallpaper.api.API;
+import com.errorstation.wallpaper.api.Wallpaper;
+import com.errorstation.wallpaper.api.Wallpaper_;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 
@@ -25,13 +29,12 @@ import retrofit2.Response;
  * Created by Rubayet on 15-Oct-16.
  */
 
-public class EditorChoiceFragment extends Fragment {
+public class TrendingFragment extends Fragment {
     View view;
     GridView grid;
     private List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
     ProgressBar progressBar;
     private FirebaseAnalytics mFirebaseAnalytics;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,10 +48,12 @@ public class EditorChoiceFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
-
+        /*GoogleAnalyticsData.tracker().send(new HitBuilders.EventBuilder("First Page", "Open")
+                .setLabel("Category")
+                .build());*/
 
         progressBar.setVisibility(View.VISIBLE);
-        API.Factory.getInstance().getEditorWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getFlowersWallpaper().enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 wallpapers = response.body().getWallpaper();

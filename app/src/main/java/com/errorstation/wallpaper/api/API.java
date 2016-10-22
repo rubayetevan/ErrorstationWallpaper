@@ -1,4 +1,4 @@
-package com.errorstation.wallpaper;
+package com.errorstation.wallpaper.api;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;

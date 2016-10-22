@@ -1,4 +1,4 @@
-package com.errorstation.wallpaper;
+package com.errorstation.wallpaper.firebase;
 
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.iid.FirebaseInstanceId;

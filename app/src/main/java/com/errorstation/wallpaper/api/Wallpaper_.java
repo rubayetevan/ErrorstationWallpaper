@@ -1,5 +1,5 @@
 
-package com.errorstation.wallpaper;
+package com.errorstation.wallpaper.api;
 
 
 import com.google.gson.annotations.Expose;

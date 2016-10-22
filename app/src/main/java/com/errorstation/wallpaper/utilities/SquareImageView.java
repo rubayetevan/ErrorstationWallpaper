@@ -1,4 +1,4 @@
-package com.errorstation.wallpaper;
+package com.errorstation.wallpaper.utilities;
 
 /**
  * Created by Rubayet on 18-Jul-16.

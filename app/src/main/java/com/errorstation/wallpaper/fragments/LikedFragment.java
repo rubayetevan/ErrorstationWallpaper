@@ -1,4 +1,4 @@
-package com.errorstation.wallpaper;
+package com.errorstation.wallpaper.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,11 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 
+import com.errorstation.wallpaper.R;
+import com.errorstation.wallpaper.adapters.GridAdapter;
+import com.errorstation.wallpaper.api.API;
+import com.errorstation.wallpaper.api.Wallpaper;
+import com.errorstation.wallpaper.api.Wallpaper_;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 
@@ -24,7 +29,7 @@ import retrofit2.Response;
  * Created by Rubayet on 15-Oct-16.
  */
 
-public class PopularFragment extends Fragment {
+public class LikedFragment extends Fragment {
     View view;
     GridView grid;
     private List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
@@ -48,7 +53,7 @@ public class PopularFragment extends Fragment {
                 .build());*/
 
         progressBar.setVisibility(View.VISIBLE);
-        API.Factory.getInstance().getPopularWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getSpaceWallpaper().enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 wallpapers = response.body().getWallpaper();
