@@ -5,4 +5,23 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!--category_names_starts-->
+    <string name="name_abstract">Abstract</string>
+    <string name="name_animals">Animals</string>
+    <string name="name_architecture">Architecture</string>
+    <string name="name_beach">Beach</string>
+    <string name="name_bikes">Bikes</string>
+    <string name="name_business">Business Photos</string>
+    <string name="name_city">City</string>
+    <string name="name_creative">Creative Graphics</string>
+    <string name="name_flowers">Flowers</string>
+    <string name="name_food">Food</string>
+    <string name="name_games">Games</string>
+    <string name="name_macro">Macro</string>
+    <string name="name_nature">Nature</string>
+    <string name="name_space">Space</string>
+    <!--category_names_ends-->
+    <string name="more">More</string>
+
 </resources>

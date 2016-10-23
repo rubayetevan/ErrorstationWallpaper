@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffefef"
-    android:padding="10dp"
+    android:background="#f3f3f3"
+    android:paddingTop="10dp"
+
     tools:context=".activities.MainActivity">
 
     <LinearLayout
@@ -13,31 +14,37 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:background="#FFFFFF"
             android:elevation="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:padding="5dp">
 
                 <TextView
+                    android:textSize="17sp"
+                    android:paddingLeft="15dp"
+                    android:textStyle="bold"
+                    android:textColor="#212121"
                     android:id="@+id/header1TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Beach Wallpaper" />
+                    android:text="@string/name_abstract" />
 
                 <TextView
+                    android:textColor="@color/colorPrimary"
+                    android:paddingRight="10dp"
                     android:id="@+id/more1TV"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/header1TV"
                     android:gravity="right"
-                    android:text="More" />
+                    android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView1"
@@ -50,14 +57,14 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginTop="10dp"
             android:background="#FFFFFF"
             android:elevation="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:padding="5dp">
 
                 <TextView
@@ -65,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Beach Wallpaper" />
+                    android:text="@string/name_animals" />
 
                 <TextView
                     android:id="@+id/more2TV"
@@ -74,12 +81,11 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/header2TV"
                     android:gravity="right"
-                    android:text="More" />
+                    android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
-
                     android:id="@+id/recyclerView2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/header2TV"
                     android:layout_marginTop="10dp" />
@@ -88,14 +94,14 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginTop="10dp"
             android:background="#FFFFFF"
             android:elevation="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:padding="5dp">
 
                 <TextView
@@ -103,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Beach Wallpaper" />
+                    android:text="@string/name_architecture" />
 
                 <TextView
                     android:id="@+id/more3TV"
@@ -112,12 +118,11 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/header3TV"
                     android:gravity="right"
-                    android:text="More" />
+                    android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
-
                     android:id="@+id/recyclerView3"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/header3TV"
                     android:layout_marginTop="10dp" />
@@ -126,14 +131,14 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginTop="10dp"
             android:background="#FFFFFF"
             android:elevation="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:padding="5dp">
 
                 <TextView
@@ -141,7 +146,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Beach Wallpaper" />
+                    android:text="@string/name_beach" />
 
                 <TextView
                     android:id="@+id/more4TV"
@@ -150,12 +155,11 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/header4TV"
                     android:gravity="right"
-                    android:text="More" />
+                    android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
-
                     android:id="@+id/recyclerView4"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/header4TV"
                     android:layout_marginTop="10dp" />
@@ -164,14 +168,14 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginTop="10dp"
             android:background="#FFFFFF"
             android:elevation="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:padding="5dp">
 
                 <TextView
@@ -179,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Beach Wallpaper" />
+                    android:text="@string/name_bikes" />
 
                 <TextView
                     android:id="@+id/more5TV"
@@ -188,14 +192,349 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@id/header5TV"
                     android:gravity="right"
-                    android:text="More" />
+                    android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
-
                     android:id="@+id/recyclerView5"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/header5TV"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/header6TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/name_business" />
+
+                <TextView
+                    android:id="@+id/more6TV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/header6TV"
+                    android:gravity="right"
+                    android:text="@string/more" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header6TV"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/header7TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/name_city" />
+
+                <TextView
+                    android:id="@+id/more7TV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/header7TV"
+                    android:gravity="right"
+                    android:text="@string/more" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header7TV"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/header8TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/name_creative" />
+
+                <TextView
+                    android:id="@+id/more8TV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/header8TV"
+                    android:gravity="right"
+                    android:text="@string/more" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header8TV"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/header11TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/name_flowers" />
+
+                <TextView
+                    android:id="@+id/more11TV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/header11TV"
+                    android:gravity="right"
+                    android:text="@string/more" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header11TV"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/header12TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/name_food" />
+
+                <TextView
+                    android:id="@+id/more12TV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/header12TV"
+                    android:gravity="right"
+                    android:text="@string/more" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header12TV"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/header13TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/name_games" />
+
+                <TextView
+                    android:id="@+id/more13TV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/header13TV"
+                    android:gravity="right"
+                    android:text="@string/more" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header13TV"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/header14TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/name_macro" />
+
+                <TextView
+                    android:id="@+id/more14TV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/header14TV"
+                    android:gravity="right"
+                    android:text="@string/more" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header14TV"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/header9TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/name_nature" />
+
+                <TextView
+                    android:id="@+id/more9TV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/header9TV"
+                    android:gravity="right"
+                    android:text="@string/more" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header9TV"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#FFFFFF"
+            android:elevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/header10TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/name_space" />
+
+                <TextView
+                    android:id="@+id/more10TV"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@id/header10TV"
+                    android:gravity="right"
+                    android:text="@string/more" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/header10TV"
                     android:layout_marginTop="10dp" />
             </RelativeLayout>
         </android.support.v7.widget.CardView>
