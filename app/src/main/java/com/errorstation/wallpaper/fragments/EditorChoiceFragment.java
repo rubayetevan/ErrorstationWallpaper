@@ -1,6 +1,7 @@
 package com.errorstation.wallpaper.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -50,8 +51,9 @@ public class EditorChoiceFragment extends Fragment {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
 
-
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#E91E63"), android.graphics.PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.VISIBLE);
+
         API.Factory.getInstance().getEditorWallpaper().enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
