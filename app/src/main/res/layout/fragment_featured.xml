@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#f3f3f3"
-    android:paddingTop="10dp"
+    android:background="@color/colorFetauredbackground"
 
     tools:context=".activities.MainActivity">
 
@@ -14,10 +13,8 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+
+            style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -25,25 +22,16 @@
                 android:padding="5dp">
 
                 <TextView
-                    android:textSize="17sp"
-                    android:paddingLeft="15dp"
-                    android:textStyle="bold"
-                    android:textColor="#212121"
                     android:id="@+id/header1TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_abstract" />
 
                 <TextView
-                    android:textColor="@color/colorPrimary"
-                    android:paddingRight="10dp"
                     android:id="@+id/more1TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header1TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -55,12 +43,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -69,18 +52,15 @@
 
                 <TextView
                     android:id="@+id/header2TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_animals" />
 
                 <TextView
                     android:id="@+id/more2TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header2TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -92,12 +72,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -106,18 +81,15 @@
 
                 <TextView
                     android:id="@+id/header3TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_architecture" />
 
                 <TextView
                     android:id="@+id/more3TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header3TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -129,12 +101,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -143,18 +110,15 @@
 
                 <TextView
                     android:id="@+id/header4TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_beach" />
 
                 <TextView
                     android:id="@+id/more4TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header4TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -166,12 +130,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -180,18 +139,15 @@
 
                 <TextView
                     android:id="@+id/header5TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_bikes" />
 
                 <TextView
                     android:id="@+id/more5TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header5TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -203,12 +159,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -217,18 +168,15 @@
 
                 <TextView
                     android:id="@+id/header6TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_business" />
 
                 <TextView
                     android:id="@+id/more6TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header6TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -240,12 +188,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -254,18 +197,15 @@
 
                 <TextView
                     android:id="@+id/header7TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_city" />
 
                 <TextView
                     android:id="@+id/more7TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header7TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -278,12 +218,7 @@
         </android.support.v7.widget.CardView>
 
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -292,18 +227,15 @@
 
                 <TextView
                     android:id="@+id/header8TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_creative" />
 
                 <TextView
                     android:id="@+id/more8TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header8TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -315,12 +247,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -329,18 +256,15 @@
 
                 <TextView
                     android:id="@+id/header11TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_flowers" />
 
                 <TextView
                     android:id="@+id/more11TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header11TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -352,12 +276,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -366,18 +285,15 @@
 
                 <TextView
                     android:id="@+id/header12TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_food" />
 
                 <TextView
                     android:id="@+id/more12TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header12TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -389,12 +305,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -403,18 +314,15 @@
 
                 <TextView
                     android:id="@+id/header13TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_games" />
 
                 <TextView
                     android:id="@+id/more13TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header13TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -426,13 +334,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -441,18 +343,15 @@
 
                 <TextView
                     android:id="@+id/header14TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_macro" />
 
                 <TextView
                     android:id="@+id/more14TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header14TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -464,12 +363,7 @@
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+        <android.support.v7.widget.CardView style="@style/fetauredCardView_style">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -478,18 +372,15 @@
 
                 <TextView
                     android:id="@+id/header9TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_nature" />
 
                 <TextView
                     android:id="@+id/more9TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header9TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView
@@ -502,12 +393,8 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:elevation="10dp">
+            style="@style/fetauredCardView_style"
+            android:layout_marginBottom="15dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -516,18 +403,15 @@
 
                 <TextView
                     android:id="@+id/header10TV"
+                    style="@style/headerCardView_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:text="@string/name_space" />
 
                 <TextView
                     android:id="@+id/more10TV"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    style="@style/moreCardView_style"
                     android:layout_toRightOf="@id/header10TV"
-                    android:gravity="right"
                     android:text="@string/more" />
 
                 <android.support.v7.widget.RecyclerView

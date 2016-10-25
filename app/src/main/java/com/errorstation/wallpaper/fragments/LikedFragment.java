@@ -52,7 +52,7 @@ public class LikedFragment extends Fragment {
         /*GoogleAnalyticsData.tracker().send(new HitBuilders.EventBuilder("First Page", "Open")
                 .setLabel("Category")
                 .build());*/
-        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#E91E63"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        //progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#E91E63"), android.graphics.PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.VISIBLE);
         API.Factory.getInstance().getSpaceWallpaper().enqueue(new Callback<Wallpaper>() {
             @Override

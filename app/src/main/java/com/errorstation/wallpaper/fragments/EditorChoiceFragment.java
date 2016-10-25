@@ -51,7 +51,7 @@ public class EditorChoiceFragment extends Fragment {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
 
-        progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#E91E63"), android.graphics.PorterDuff.Mode.MULTIPLY);
+        //progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#E91E63"), android.graphics.PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.VISIBLE);
 
         API.Factory.getInstance().getEditorWallpaper().enqueue(new Callback<Wallpaper>() {
