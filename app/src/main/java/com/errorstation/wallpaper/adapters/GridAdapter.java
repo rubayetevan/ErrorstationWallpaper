@@ -3,6 +3,7 @@ package com.errorstation.wallpaper.adapters;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -35,6 +37,7 @@ public class GridAdapter extends BaseAdapter
     Context context;
     List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
     LayoutInflater inflater;
+    double widthPixels, heightIndividual, widthIndividual;
 
 
     public GridAdapter(Context context, List<Wallpaper_> wallpapers) {
@@ -42,6 +45,11 @@ public class GridAdapter extends BaseAdapter
         this.wallpapers = wallpapers;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
+
+        widthPixels = Resources.getSystem().getDisplayMetrics().widthPixels;
+        widthIndividual = (widthPixels / 2.0);
+        heightIndividual = ((420.0 / 345.0) * widthIndividual);
+
 
     }
 
@@ -66,13 +74,18 @@ public class GridAdapter extends BaseAdapter
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.grid_item, parent, false);
         holder.img = (ImageView) convertView.findViewById(R.id.imgv);
-
+        holder.titleTV = (TextView) convertView.findViewById(R.id.gtitleTV);
         final String thumb = wallpapers.get(position).getThumb();
 
-
+        ViewGroup.LayoutParams params = holder.img.getLayoutParams();
+// Changes the height and width to the specified *pixels*
+        params.height = (int) heightIndividual;
+        params.width = (int) (widthIndividual);
+        holder.img.setLayoutParams(params);
+        holder.titleTV.setText(wallpapers.get(position).getTitle());
         Glide.with(context)
                 .load(thumb)
-                .override(200, 200)
+                .override((int) widthIndividual, (int) heightIndividual)
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -108,7 +121,7 @@ public class GridAdapter extends BaseAdapter
                 intent.putExtra("source", wallpapers.get(position).getSource());
                 intent.putExtra("category", wallpapers.get(position).getCategory());
                 intent.putExtra("picID", wallpapers.get(position).getPicid());
-                intent.putExtra("view",wallpapers.get(position).getViews());
+                intent.putExtra("view", wallpapers.get(position).getViews());
 
 
                 /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -122,8 +135,8 @@ public class GridAdapter extends BaseAdapter
                             .setLabel("Image")
                             .build());
 */
-                    context.startActivity(intent);
-               // }
+                context.startActivity(intent);
+                // }
 
 
             }
@@ -135,6 +148,7 @@ public class GridAdapter extends BaseAdapter
 
     public class Holder {
         ImageView img;
+        TextView titleTV;
 
     }
 

@@ -10,4 +10,68 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.errorstation.wallpaper.activities.DetailsActivity">
 
+    <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/testimgV"
+        android:layout_width="120dp"
+        android:layout_height="150dp" />
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:id="@+id/color1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/color2"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/color1"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/testimgV"
+        android:orientation="vertical"
+        android:id="@+id/color2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/color2"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/testimgV"
+        android:orientation="vertical"
+        android:id="@+id/color3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/color1"
+        android:orientation="vertical"
+        android:id="@+id/color4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/color4"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/color2"
+        android:orientation="vertical"
+        android:id="@+id/color5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/color5"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/color3"
+        android:orientation="vertical"
+        android:id="@+id/color6"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+
+
+
+
 </RelativeLayout>

@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <com.errorstation.wallpaper.utilities.SquareImageView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context=".activities.MainActivity"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
         android:id="@+id/imgv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:elevation="6dp"
-        android:gravity="center"
         android:scaleType="centerCrop"
-        android:background="@mipmap/ic_launcher"
-        android:textColor="#afff" />
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
+    <View
+
+        android:layout_gravity="bottom"
+        android:background="@drawable/shade_image_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"/>
+    <TextView
+        android:paddingLeft="5dp"
+        android:paddingBottom="5dp"
+        android:fontFamily="sans-serif"
+        android:textSize="14sp"
+        android:id="@+id/gtitleTV"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="bottom"
+        android:text="hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</FrameLayout>
