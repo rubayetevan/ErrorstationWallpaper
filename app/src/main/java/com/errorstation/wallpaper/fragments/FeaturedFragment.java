@@ -1,5 +1,6 @@
 package com.errorstation.wallpaper.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.errorstation.wallpaper.R;
+import com.errorstation.wallpaper.activities.CategoryActivity;
+import com.errorstation.wallpaper.activities.MainActivity;
 import com.errorstation.wallpaper.adapters.RecyclerAdapter;
 import com.errorstation.wallpaper.api.API;
 import com.errorstation.wallpaper.api.Wallpaper;
@@ -31,7 +35,7 @@ import retrofit2.Response;
 public class FeaturedFragment extends Fragment {
     View view;
     RecyclerView abstractRV, animalsRV, architectureRV, beachRV, bikesRV, businessRV, cityRV, creativeRV, flowersRV, foodRV, gamesRV, macroRV, natureRV, spaceRV;
-
+    TextView animalsTV;
 
 
     @Nullable
@@ -52,6 +56,7 @@ public class FeaturedFragment extends Fragment {
         spaceRV = (RecyclerView) view.findViewById(R.id.recyclerView10);
         gamesRV = (RecyclerView) view.findViewById(R.id.recyclerView13);
         macroRV = (RecyclerView) view.findViewById(R.id.recyclerView14);
+        animalsTV = (TextView) view.findViewById(R.id.more1TV);
 
 
         return view;
@@ -62,6 +67,13 @@ public class FeaturedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         getData();
+        animalsTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),CategoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

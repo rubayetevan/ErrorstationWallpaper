@@ -1,14 +1,11 @@
-package com.errorstation.wallpaper.fragments;
+package com.errorstation.wallpaper.activities;
 
-import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 
@@ -27,41 +24,32 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by Rubayet on 15-Oct-16.
- */
-
-public class EditorChoiceFragment extends Fragment {
-    View view;
+public class CategoryActivity extends AppCompatActivity {
     GridView grid;
     private List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
     ProgressBar progressBar;
     private FirebaseAnalytics mFirebaseAnalytics;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_editor_choice, container, false);
-        grid = (GridView) view.findViewById(R.id.grid);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        return view;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_category);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
-
+        grid = (GridView) findViewById(R.id.grid2);
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#E91E63"), android.graphics.PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.VISIBLE);
+        ViewCompat.setNestedScrollingEnabled(grid,true);
+        getSupportActionBar().setTitle("Animal Wallpaper");
 
-        API.Factory.getInstance().getEditorWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getAnimalandBirdsWallpaper().enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 wallpapers = response.body().getWallpaper();
-                grid.setAdapter(new GridAdapter(getContext(), wallpapers));
+                grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers));
                 progressBar.setVisibility(View.GONE);
             }
 
@@ -71,10 +59,7 @@ public class EditorChoiceFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+
     }
 }
