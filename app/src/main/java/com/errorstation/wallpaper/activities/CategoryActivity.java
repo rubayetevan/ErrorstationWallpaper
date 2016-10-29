@@ -77,247 +77,53 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void getData(String categoryName) {
-        if(categoryName.matches(getString(R.string.name_animals))) {
-            API.Factory.getInstance().getAnimalandBirdsWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-        else if (categoryName.matches(getString(R.string.name_abstract)))
-        {
-            API.Factory.getInstance().getAbstractWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
+        if (categoryName.matches(getString(R.string.name_animals))) {
+            getWallpaperFromServer(getString(R.string.id_animals));
+        } else if (categoryName.matches(getString(R.string.name_abstract))) {
+            getWallpaperFromServer(getString(R.string.id_abstract));
+        } else if (categoryName.matches(getString(R.string.name_architecture))) {
+            getWallpaperFromServer(getString(R.string.id_architecture));
+        } else if (categoryName.matches(getString(R.string.name_beach))) {
+            getWallpaperFromServer(getString(R.string.id_beach));
+        } else if (categoryName.matches(getString(R.string.name_bikes))) {
+            getWallpaperFromServer(getString(R.string.id_bikes));
+        } else if (categoryName.matches(getString(R.string.name_business))) {
+            getWallpaperFromServer(getString(R.string.id_business));
+        } else if (categoryName.matches(getString(R.string.name_city))) {
+            getWallpaperFromServer(getString(R.string.id_city));
+        } else if (categoryName.matches(getString(R.string.name_creative))) {
+            getWallpaperFromServer(getString(R.string.id_creative));
+        } else if (categoryName.matches(getString(R.string.name_flowers))) {
+            getWallpaperFromServer(getString(R.string.id_flowers));
+        } else if (categoryName.matches(getString(R.string.name_food))) {
+            getWallpaperFromServer(getString(R.string.id_food));
+        } else if (categoryName.matches(getString(R.string.name_games))) {
+            getWallpaperFromServer(getString(R.string.id_games));
+        } else if (categoryName.matches(getString(R.string.name_macro))) {
+            getWallpaperFromServer(getString(R.string.id_macro));
+        } else if (categoryName.matches(getString(R.string.name_nature))) {
+            getWallpaperFromServer(getString(R.string.id_nature));
+        } else if (categoryName.matches(getString(R.string.name_space))) {
+            getWallpaperFromServer(getString(R.string.id_space));
         }
 
-        else if (categoryName.matches(getString(R.string.name_architecture)))
-        {
-            API.Factory.getInstance().getArchitectureWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
+    }
 
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
+    private void getWallpaperFromServer(String categoryID) {
+        API.Factory.getInstance().getWallpaper(categoryID, getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
+            @Override
+            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
+                wallpapers = response.body().getWallpaper();
+                grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
+                progressBar.setVisibility(View.GONE);
+            }
 
-        if(categoryName.matches(getString(R.string.name_beach))) {
-            API.Factory.getInstance().getBeachWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-        else if (categoryName.matches(getString(R.string.name_bikes)))
-        {
-            API.Factory.getInstance().getBikeWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-
-        else if (categoryName.matches(getString(R.string.name_business)))
-        {
-            API.Factory.getInstance().getBusinessWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-        if(categoryName.matches(getString(R.string.name_city))) {
-            API.Factory.getInstance().getCityWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-        else if (categoryName.matches(getString(R.string.name_creative)))
-        {
-            API.Factory.getInstance().getCreativeWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-
-        else if (categoryName.matches(getString(R.string.name_flowers)))
-        {
-            API.Factory.getInstance().getFlowersWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-        if(categoryName.matches(getString(R.string.name_food))) {
-            API.Factory.getInstance().getFoodWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-        else if (categoryName.matches(getString(R.string.name_games)))
-        {
-            API.Factory.getInstance().getGamesWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-
-        else if (categoryName.matches(getString(R.string.name_macro)))
-        {
-            API.Factory.getInstance().getMacroWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-        else if (categoryName.matches(getString(R.string.name_nature)))
-        {
-            API.Factory.getInstance().getNatureWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-
-        else if (categoryName.matches(getString(R.string.name_space)))
-        {
-            API.Factory.getInstance().getSpaceWallpaper().enqueue(new Callback<Wallpaper>() {
-                @Override
-                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                    wallpapers = response.body().getWallpaper();
-                    grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<Wallpaper> call, Throwable t) {
-                    FirebaseCrash.report(new Exception(t.getMessage()));
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-
+            @Override
+            public void onFailure(Call<Wallpaper> call, Throwable t) {
+                FirebaseCrash.report(new Exception(t.getMessage()));
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

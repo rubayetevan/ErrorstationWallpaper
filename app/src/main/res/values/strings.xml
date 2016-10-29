@@ -12,9 +12,9 @@
     <string name="name_architecture">Architecture</string>
     <string name="name_beach">Beach</string>
     <string name="name_bikes">Bikes</string>
-    <string name="name_business">Business Photos</string>
+    <string name="name_business">Business</string>
     <string name="name_city">City</string>
-    <string name="name_creative">Creative Graphics</string>
+    <string name="name_creative">Creative</string>
     <string name="name_flowers">Flowers</string>
     <string name="name_food">Food</string>
     <string name="name_games">Games</string>
@@ -24,5 +24,27 @@
     <!--category_names_ends-->
     <string name="more">MORE</string>
     <string name="transition">imageTransition</string>
-    <string name="secure_key">com.errorstation.evan.polin.mir</string>
+    <string name="general_user">YWJjQGdtYWlsLmNvbXF3ZXJ0eQ==</string>
+
+    <!--category_IDS_starts-->
+    <string name="id_abstract">9</string>
+    <string name="id_animals">4</string>
+    <string name="id_architecture">7</string>
+    <string name="id_beach">5</string>
+    <string name="id_bikes">6</string>
+    <string name="id_business">13</string>
+    <string name="id_city">8</string>
+    <string name="id_creative">14</string>
+    <string name="id_flowers">10</string>
+    <string name="id_food">15</string>
+    <string name="id_games">16</string>
+    <string name="id_macro">17</string>
+    <string name="id_nature">18</string>
+    <string name="id_space">19</string>
+    <string name="id_editor">20</string>
+    <string name="id_popular">21</string>
+
+    <string name="id_trending">9</string>
+    <string name="id_liked">13</string>
+    <!--category_IDS_ends-->
 </resources>

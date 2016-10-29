@@ -57,7 +57,7 @@ public class EditorChoiceFragment extends Fragment {
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#E91E63"), android.graphics.PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.VISIBLE);
 
-        API.Factory.getInstance().getEditorWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_editor),getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 wallpapers = response.body().getWallpaper();

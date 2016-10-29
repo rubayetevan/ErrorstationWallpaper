@@ -1,9 +1,9 @@
 
 package com.errorstation.wallpaper.api;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
 
 public class Wallpaper_ {
 
@@ -37,6 +37,9 @@ public class Wallpaper_ {
     @SerializedName("downloads")
     @Expose
     private String downloads;
+    @SerializedName("liked")
+    @Expose
+    private String liked;
 
     /**
      * 
@@ -216,6 +219,24 @@ public class Wallpaper_ {
      */
     public void setDownloads(String downloads) {
         this.downloads = downloads;
+    }
+
+    /**
+     * 
+     * @return
+     *     The liked
+     */
+    public String getLiked() {
+        return liked;
+    }
+
+    /**
+     * 
+     * @param liked
+     *     The liked
+     */
+    public void setLiked(String liked) {
+        this.liked = liked;
     }
 
 }

@@ -77,7 +77,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Wallpa
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        FirebaseCrash.report(new Exception(e.toString()));
+//                        FirebaseCrash.report(new Exception(e.getMessage()));
                         FirebaseCrash.log("imageURL: " + thumb);
                         return false;
                     }

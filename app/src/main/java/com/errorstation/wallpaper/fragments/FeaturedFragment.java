@@ -35,7 +35,7 @@ import retrofit2.Response;
 public class FeaturedFragment extends Fragment {
     View view;
     RecyclerView abstractRV, animalsRV, architectureRV, beachRV, bikesRV, businessRV, cityRV, creativeRV, flowersRV, foodRV, gamesRV, macroRV, natureRV, spaceRV;
-    TextView abstractTV,animalsTV,architectureTV, beachTV, bikesTV, businessTV, cityTV, creativeTV, flowersTV, foodTV, gamesTV, macroTV, natureTV, spaceTV;
+    TextView abstractTV, animalsTV, architectureTV, beachTV, bikesTV, businessTV, cityTV, creativeTV, flowersTV, foodTV, gamesTV, macroTV, natureTV, spaceTV;
 
 
     @Nullable
@@ -179,13 +179,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getAbstarctFeataured() {
-        API.Factory.getInstance().getAbstractWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_abstract), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 abstractRV.setLayoutManager(layoutManager);
                 abstractRV.setAdapter(beachAdapter);
                 getAnimalFeataured();
@@ -201,13 +202,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getAnimalFeataured() {
-        API.Factory.getInstance().getAnimalandBirdsWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_animals), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 animalsRV.setLayoutManager(layoutManager);
                 animalsRV.setAdapter(beachAdapter);
                 getArchitectureFeataured();
@@ -224,13 +226,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getArchitectureFeataured() {
-        API.Factory.getInstance().getArchitectureWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_architecture), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 architectureRV.setLayoutManager(layoutManager);
                 architectureRV.setAdapter(beachAdapter);
                 getBeachFeataured();
@@ -246,13 +249,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getBeachFeataured() {
-        API.Factory.getInstance().getBeachWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_beach), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 beachRV.setLayoutManager(layoutManager);
                 beachRV.setAdapter(beachAdapter);
                 getBikesFeataured();
@@ -268,13 +272,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getBikesFeataured() {
-        API.Factory.getInstance().getBikeWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_bikes), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-               List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 bikesRV.setLayoutManager(layoutManager);
                 bikesRV.setAdapter(beachAdapter);
                 getBusinessFeataured();
@@ -290,13 +295,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getBusinessFeataured() {
-        API.Factory.getInstance().getBusinessWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_business), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-               List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 businessRV.setLayoutManager(layoutManager);
                 businessRV.setAdapter(beachAdapter);
                 getCityFeataured();
@@ -312,13 +318,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getCityFeataured() {
-        API.Factory.getInstance().getCityWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_city), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-               List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 cityRV.setLayoutManager(layoutManager);
                 cityRV.setAdapter(beachAdapter);
                 getCraetiveFeataured();
@@ -334,13 +341,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getCraetiveFeataured() {
-        API.Factory.getInstance().getCreativeWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_creative), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-               List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 creativeRV.setLayoutManager(layoutManager);
                 creativeRV.setAdapter(beachAdapter);
                 getFlowersFeataured();
@@ -356,13 +364,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getFlowersFeataured() {
-        API.Factory.getInstance().getFlowersWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_flowers), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 flowersRV.setLayoutManager(layoutManager);
                 flowersRV.setAdapter(beachAdapter);
                 getFoodFeataured();
@@ -378,13 +387,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getFoodFeataured() {
-        API.Factory.getInstance().getFoodWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_food), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-               List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 foodRV.setLayoutManager(layoutManager);
                 foodRV.setAdapter(beachAdapter);
                 getGamesFeataured();
@@ -400,13 +410,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getGamesFeataured() {
-        API.Factory.getInstance().getGamesWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_games), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-               List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 gamesRV.setLayoutManager(layoutManager);
                 gamesRV.setAdapter(beachAdapter);
                 getMacroFeataured();
@@ -422,13 +433,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getMacroFeataured() {
-        API.Factory.getInstance().getMacroWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_macro), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 macroRV.setLayoutManager(layoutManager);
                 macroRV.setAdapter(beachAdapter);
                 getNatureFeataured();
@@ -444,13 +456,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getNatureFeataured() {
-        API.Factory.getInstance().getNatureWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_nature), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-               List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 natureRV.setLayoutManager(layoutManager);
                 natureRV.setAdapter(beachAdapter);
                 getSpaceFeataured();
@@ -466,13 +479,14 @@ public class FeaturedFragment extends Fragment {
     }
 
     private void getSpaceFeataured() {
-        API.Factory.getInstance().getSpaceWallpaper().enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getWallpaper(getString(R.string.id_space), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-             List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
                 wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
-                LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
+                LinearLayoutManager layoutManager;
+                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
                 spaceRV.setLayoutManager(layoutManager);
                 spaceRV.setAdapter(beachAdapter);
             }
@@ -485,8 +499,7 @@ public class FeaturedFragment extends Fragment {
         });
     }
 
-    private void startTransection(String categoryName)
-    {
+    private void startTransection(String categoryName) {
         Intent intent = new Intent(getActivity(), CategoryActivity.class);
         intent.putExtra("category", categoryName);
         startActivity(intent);
