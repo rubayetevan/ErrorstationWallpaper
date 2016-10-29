@@ -4,6 +4,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:transitionName="@string/transition"
         android:id="@+id/imgv"
         android:scaleType="centerCrop"
         android:layout_height="wrap_content"

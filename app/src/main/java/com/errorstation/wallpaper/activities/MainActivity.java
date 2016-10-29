@@ -34,11 +34,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -52,6 +50,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -102,23 +101,61 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.abstractND) {
+            startTransection(getString(R.string.name_abstract));
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.animalsND) {
+            startTransection(getString(R.string.name_animals));
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.architectureND) {
+            startTransection(getString(R.string.name_architecture));
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.beachND) {
+            startTransection(getString(R.string.name_beach));
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.bikeND) {
+            startTransection(getString(R.string.name_bikes));
+
+        } else if (id == R.id.businessND) {
+            startTransection(getString(R.string.name_business));
+
+        } else if (id == R.id.cityND) {
+            startTransection(getString(R.string.name_city));
+
+        } else if (id == R.id.creativeND) {
+            startTransection(getString(R.string.name_creative));
+
+        } else if (id == R.id.flowersND) {
+            startTransection(getString(R.string.name_flowers));
+
+        } else if (id == R.id.foodND) {
+            startTransection(getString(R.string.name_food));
+
+        } else if (id == R.id.gamesND) {
+            startTransection(getString(R.string.name_games));
+
+        } else if (id == R.id.macroND) {
+            startTransection(getString(R.string.name_macro));
+
+        } else if (id == R.id.natureND) {
+            startTransection(getString(R.string.name_nature));
+
+        } else if (id == R.id.spaceND) {
+           startTransection(getString(R.string.name_space));
 
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void startTransection(String categoryName)
+    {
+        Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+        intent.putExtra("category", categoryName);
+        startActivity(intent);
     }
 
 }

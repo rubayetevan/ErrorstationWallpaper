@@ -58,7 +58,7 @@ public class PopularFragment extends Fragment {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 wallpapers = response.body().getWallpaper();
-                grid.setAdapter(new GridAdapter(getContext(), wallpapers));
+                grid.setAdapter(new GridAdapter(getContext(), wallpapers,getActivity()));
                 progressBar.setVisibility(View.GONE);
             }
 

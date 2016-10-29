@@ -1,6 +1,8 @@
 package com.errorstation.wallpaper.adapters;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -38,14 +40,15 @@ public class GridAdapter extends BaseAdapter
     List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
     LayoutInflater inflater;
     double widthPixels, heightIndividual, widthIndividual;
+    Activity activity;
 
 
-    public GridAdapter(Context context, List<Wallpaper_> wallpapers) {
+    public GridAdapter(Context context, List<Wallpaper_> wallpapers, Activity activity) {
         this.context = context;
         this.wallpapers = wallpapers;
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
-
+        this.activity = activity;
         widthPixels = Resources.getSystem().getDisplayMetrics().widthPixels;
         widthIndividual = (widthPixels / 2.0);
         heightIndividual = ((420.0 / 345.0) * widthIndividual);
@@ -124,19 +127,13 @@ public class GridAdapter extends BaseAdapter
                 intent.putExtra("view", wallpapers.get(position).getViews());
 
 
-                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    GoogleAnalyticsData.tracker().send(new HitBuilders.EventBuilder(thumb, "Preview")
-                            .setLabel("Image")
-                            .build());
-                    Bundle bundle1 = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, holder.img, holder.img.getTransitionName()).toBundle();
-                    startActivity(intent, bundle1);
-                } else {*/
-                    /*googleAnalyticsData.tracker().send(new HitBuilders.EventBuilder(thumb, "thumb_Preview")
-                            .setLabel("Image")
-                            .build());
-*/
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                    Bundle bundle1 = ActivityOptions.makeSceneTransitionAnimation(activity, holder.img, holder.img.getTransitionName()).toBundle();
+                    context.startActivity(intent, bundle1);
+                } else {
                 context.startActivity(intent);
-                // }
+                 }
 
 
             }

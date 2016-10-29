@@ -11,6 +11,7 @@
     tools:context="com.errorstation.wallpaper.activities.DetailsActivity">
 
     <ImageView
+        android:transitionName="@string/transition"
         android:scaleType="centerCrop"
         android:id="@+id/testimgV"
         android:layout_width="120dp"

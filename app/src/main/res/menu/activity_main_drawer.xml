@@ -3,23 +3,63 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/abstractND"
+            android:icon="@drawable/abstractnd"
+            android:title="@string/name_abstract" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/animalsND"
+            android:icon="@drawable/animals"
+            android:title="@string/name_animals" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/architectureND"
+            android:icon="@drawable/architecture"
+            android:title="@string/name_architecture" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/beachND"
+            android:icon="@drawable/beach"
+            android:title="@string/name_beach" />
+        <item
+            android:id="@+id/bikeND"
+            android:icon="@drawable/bike"
+            android:title="@string/name_bikes" />
+        <item
+            android:id="@+id/businessND"
+            android:icon="@drawable/business"
+            android:title="@string/name_business" />
+        <item
+            android:id="@+id/cityND"
+            android:icon="@drawable/city"
+            android:title="@string/name_city" />
+        <item
+            android:id="@+id/creativeND"
+            android:icon="@drawable/creative"
+            android:title="@string/name_creative" />
+        <item
+            android:id="@+id/flowersND"
+            android:icon="@drawable/flowers"
+            android:title="@string/name_flowers" />
+        <item
+            android:id="@+id/foodND"
+            android:icon="@drawable/food"
+            android:title="@string/name_food" />
+        <item
+            android:id="@+id/gamesND"
+            android:icon="@drawable/games"
+            android:title="@string/name_games" />
+        <item
+            android:id="@+id/macroND"
+            android:icon="@drawable/macro"
+            android:title="@string/name_macro" />
+        <item
+            android:id="@+id/natureND"
+            android:icon="@drawable/nature"
+            android:title="@string/name_nature" />
+        <item
+            android:id="@+id/spaceND"
+            android:icon="@drawable/space"
+            android:title="@string/name_space" />
     </group>
-
+<!--
     <item android:title="Communicate">
         <menu>
             <item
@@ -31,6 +71,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
         </menu>
-    </item>
+    </item>-->
 
 </menu>

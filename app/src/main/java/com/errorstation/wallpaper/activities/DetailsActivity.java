@@ -33,6 +33,7 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deatails);
+
         imageView = (ImageView) findViewById(R.id.testimgV);
         VibrantSwatch = (LinearLayout) findViewById(R.id.color1);
         DarkVibrantSwatch = (LinearLayout) findViewById(R.id.color2);

@@ -23,5 +23,6 @@
     <string name="name_space">Space</string>
     <!--category_names_ends-->
     <string name="more">MORE</string>
-
+    <string name="transition">imageTransition</string>
+    <string name="secure_key">com.errorstation.evan.polin.mir</string>
 </resources>
