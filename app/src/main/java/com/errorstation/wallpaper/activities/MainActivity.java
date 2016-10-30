@@ -52,6 +52,11 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -70,6 +75,7 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            finish();
         }
     }
 
@@ -156,6 +162,9 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
         intent.putExtra("category", categoryName);
         startActivity(intent);
+
     }
+
+    
 
 }

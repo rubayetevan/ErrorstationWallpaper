@@ -1,5 +1,7 @@
 package com.errorstation.wallpaper.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -82,9 +84,14 @@ public class FeaturedFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         getData();
         onClicklistener();
-
-
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+    
+
 
     private void onClicklistener() {
         abstractTV.setOnClickListener(new View.OnClickListener() {
@@ -503,6 +510,5 @@ public class FeaturedFragment extends Fragment {
         Intent intent = new Intent(getActivity(), CategoryActivity.class);
         intent.putExtra("category", categoryName);
         startActivity(intent);
-        getActivity().finish();
     }
 }
