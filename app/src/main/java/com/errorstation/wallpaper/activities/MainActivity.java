@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
         intent.putExtra("category", categoryName);
         startActivity(intent);
+        finish();
 
     }
 

@@ -20,7 +20,7 @@ import com.errorstation.wallpaper.adapters.GridAdapter;
 import com.errorstation.wallpaper.api.API;
 import com.errorstation.wallpaper.api.Wallpaper;
 import com.errorstation.wallpaper.api.Wallpaper_;
-import com.errorstation.wallpaper.database.TimeModel;
+
 import com.errorstation.wallpaper.database.WallpaperModel;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
@@ -49,38 +49,28 @@ public class CategoryActivity extends AppCompatActivity {
     int timeDiff = 0;
     int lastTime;
     Realm realm;
-    RealmResults<TimeModel> timeModelRealmResults;
-
+    String localTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
         Realm.init(this);
         realm = Realm.getDefaultInstance();
+
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+6:00"));
         Date currentLocalTime = cal.getTime();
         DateFormat date = new SimpleDateFormat("HH");
         date.setTimeZone(TimeZone.getTimeZone("GMT+6:00"));
-        String localTime = date.format(currentLocalTime);
+        localTime = date.format(currentLocalTime);
 
-        Log.d("Diff",String.valueOf(timeDiff));
-        Toast.makeText(this, String.valueOf(timeDiff), Toast.LENGTH_SHORT).show();
         initializer();
 
-        timeModelRealmResults = realm.where(TimeModel.class)
-                .equalTo("categoryName", categoryName)
-                .findAll();
-        if (timeModelRealmResults.size()!=0)
-        {
-            lastTime = Integer.valueOf(timeModelRealmResults.get(0).getLastUpdateTime());
-            timeDiff = Math.abs(Integer.valueOf(localTime)-lastTime);
-        }
-        else
-        {
-            lastTime =25;
-            timeDiff = 0;
-        }
-
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        lastTime = sharedPref.getInt(categoryName, 0);
+        timeDiff = Math.abs(Integer.valueOf(localTime) - lastTime);
+        Log.d("Diff", String.valueOf(timeDiff));
+        //Toast.makeText(this, String.valueOf(timeDiff), Toast.LENGTH_SHORT).show();
         getData(categoryName);
 
 
@@ -167,7 +157,7 @@ public class CategoryActivity extends AppCompatActivity {
                     public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                         wallpapers = response.body().getWallpaper();
                         if (wallpapers.get(0).getCategory().matches(categoryName)) {
-                            Toast.makeText(CategoryActivity.this, "True", Toast.LENGTH_LONG).show();
+                           // Toast.makeText(CategoryActivity.this, "True", Toast.LENGTH_LONG).show();
                         }
 
                         for (int i = 0; i < wallpapers.size(); i++) {
@@ -191,29 +181,11 @@ public class CategoryActivity extends AppCompatActivity {
                         }
                         grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
 
-                        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+6:00"));
-                        Date currentLocalTime = cal.getTime();
-                        DateFormat date = new SimpleDateFormat("HH");
-                        date.setTimeZone(TimeZone.getTimeZone("GMT+6:00"));
-                        String localTime = date.format(currentLocalTime);
 
-
-                        if(lastTime==25) {
-                            realm.beginTransaction();
-                            TimeModel timeModel = realm.createObject(TimeModel.class);
-                            timeModel.setCategoryName(categoryName);
-                            timeModel.setLastUpdateTime(localTime);
-                            realm.commitTransaction();
-                        }
-                        else
-                        {
-                            realm.beginTransaction();
-                            TimeModel timeModel = realm.where(TimeModel.class)
-                                    .equalTo("category", categoryName)
-                                    .findFirst();
-                            timeModel.setLastUpdateTime(localTime);
-                            realm.commitTransaction();
-                        }
+                        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt(categoryName, Integer.valueOf(localTime));
+                        editor.commit();
 
                     }
 
@@ -224,7 +196,7 @@ public class CategoryActivity extends AppCompatActivity {
                     }
                 });
             } else if (timeDiff < 6) {
-                Toast.makeText(CategoryActivity.this, "from DB", Toast.LENGTH_LONG).show();
+               // Toast.makeText(CategoryActivity.this, "from DB", Toast.LENGTH_LONG).show();
 
                 for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
                     Wallpaper_ wallpaper_ = new Wallpaper_();
@@ -251,7 +223,7 @@ public class CategoryActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                     wallpapers = response.body().getWallpaper();
-                    Toast.makeText(CategoryActivity.this, wallpapers.get(0).getCategory(), Toast.LENGTH_LONG).show();
+              //      Toast.makeText(CategoryActivity.this, wallpapers.get(0).getCategory(), Toast.LENGTH_LONG).show();
                     for (int i = 0; i < wallpapers.size(); i++) {
                         realm.beginTransaction();
 
@@ -273,28 +245,10 @@ public class CategoryActivity extends AppCompatActivity {
                     }
                     grid.setAdapter(new GridAdapter(CategoryActivity.this, wallpapers, CategoryActivity.this));
 
-                    Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+6:00"));
-                    Date currentLocalTime = cal.getTime();
-                    DateFormat date = new SimpleDateFormat("HH");
-                    date.setTimeZone(TimeZone.getTimeZone("GMT+6:00"));
-                    String localTime = date.format(currentLocalTime);
-
-                    if(lastTime==25) {
-                        realm.beginTransaction();
-                        TimeModel timeModel = realm.createObject(TimeModel.class);
-                        timeModel.setCategoryName(categoryName);
-                        timeModel.setLastUpdateTime(localTime);
-                        realm.commitTransaction();
-                    }
-                    else
-                    {
-                        realm.beginTransaction();
-                        TimeModel timeModel = realm.where(TimeModel.class)
-                                .equalTo("category", categoryName)
-                                .findFirst();
-                        timeModel.setLastUpdateTime(localTime);
-                        realm.commitTransaction();
-                    }
+                    SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt(categoryName, Integer.valueOf(localTime));
+                    editor.commit();
 
                 }
 
@@ -315,5 +269,6 @@ public class CategoryActivity extends AppCompatActivity {
         Intent intent = new Intent(CategoryActivity.this, MainActivity.class);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         startActivity(intent);
+        finish();
     }
 }

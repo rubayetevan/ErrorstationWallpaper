@@ -3,28 +3,37 @@ package com.errorstation.wallpaper.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.errorstation.wallpaper.R;
 import com.errorstation.wallpaper.activities.CategoryActivity;
-import com.errorstation.wallpaper.activities.MainActivity;
-import com.errorstation.wallpaper.adapters.RecyclerAdapter;
 import com.errorstation.wallpaper.api.API;
 import com.errorstation.wallpaper.api.Wallpaper;
 import com.errorstation.wallpaper.api.Wallpaper_;
+import com.errorstation.wallpaper.database.FeaturedWallpapersModel;
+import com.errorstation.wallpaper.database.WallpaperModel;
 import com.google.firebase.crash.FirebaseCrash;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +47,12 @@ public class FeaturedFragment extends Fragment {
     View view;
     RecyclerView abstractRV, animalsRV, architectureRV, beachRV, bikesRV, businessRV, cityRV, creativeRV, flowersRV, foodRV, gamesRV, macroRV, natureRV, spaceRV;
     TextView abstractTV, animalsTV, architectureTV, beachTV, bikesTV, businessTV, cityTV, creativeTV, flowersTV, foodTV, gamesTV, macroTV, natureTV, spaceTV;
-
+    int timeDiff = 0;
+    int lastTime;
+    Realm realm;
+    String localTime;
+    Activity activity;
+    private List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
 
     @Nullable
     @Override
@@ -82,16 +96,33 @@ public class FeaturedFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getData();
+        activity =getActivity();
         onClicklistener();
+        Realm.init(getActivity());
+        realm = Realm.getDefaultInstance();
+
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT+6:00"));
+        Date currentLocalTime = cal.getTime();
+        DateFormat date = new SimpleDateFormat("HH");
+        date.setTimeZone(TimeZone.getTimeZone("GMT+6:00"));
+        localTime = date.format(currentLocalTime);
+
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        lastTime = sharedPref.getInt("Featured", 0);
+        timeDiff = Math.abs(Integer.valueOf(localTime) - lastTime);
+        Log.d("Diff", String.valueOf(timeDiff));
+        Toast.makeText(getActivity(), String.valueOf(timeDiff), Toast.LENGTH_SHORT).show();
+
+        getFeatured();
+
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-    }
-    
 
+
+    }
 
     private void onClicklistener() {
         abstractTV.setOnClickListener(new View.OnClickListener() {
@@ -181,334 +212,124 @@ public class FeaturedFragment extends Fragment {
         });
     }
 
-    private void getData() {
-        getAbstarctFeataured();
-    }
+    private void getFeatured() {
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).findAll();
+        Toast.makeText(getActivity(), "hii"+String.valueOf(wallpaperModelRealmResults.size()), Toast.LENGTH_SHORT).show();
+        if (wallpaperModelRealmResults.size() > 0) {
+            if (timeDiff > 6) {
 
-    private void getAbstarctFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_abstract), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                abstractRV.setLayoutManager(layoutManager);
-                abstractRV.setAdapter(beachAdapter);
-                getAnimalFeataured();
+                realm.beginTransaction();
+                wallpaperModelRealmResults.deleteAllFromRealm();
+                realm.commitTransaction();
 
-            }
+                API.Factory.getInstance().getFeaturedWallpapers().enqueue(new Callback<Wallpaper>() {
+                    @Override
+                    public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
+                        wallpapers = response.body().getWallpaper();
 
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
+                        for (int i = 0; i < wallpapers.size(); i++) {
+                            realm.beginTransaction();
 
-            }
-        });
-    }
+                            FeaturedWallpapersModel wallpaperModel = realm.createObject(FeaturedWallpapersModel.class); // Create a new object
 
-    private void getAnimalFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_animals), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                animalsRV.setLayoutManager(layoutManager);
-                animalsRV.setAdapter(beachAdapter);
-                getArchitectureFeataured();
+                            wallpaperModel.setCategory(wallpapers.get(i).getCategory());
+                            wallpaperModel.setDescription(wallpapers.get(i).getDescription());
+                            wallpaperModel.setDownloads(wallpapers.get(i).getDownloads());
+                            wallpaperModel.setSource(wallpapers.get(i).getSource());
+                            wallpaperModel.setLiked(wallpapers.get(i).getLiked());
+                            wallpaperModel.setPicid(wallpapers.get(i).getPicid());
+                            wallpaperModel.setPicurl(wallpapers.get(i).getPicurl());
+                            wallpaperModel.setThumb(wallpapers.get(i).getThumb());
+                            wallpaperModel.setTitle(wallpapers.get(i).getTitle());
+                            wallpaperModel.setRating(wallpapers.get(i).getRating());
+                            wallpaperModel.setViews(wallpapers.get(i).getViews());
 
+                            realm.commitTransaction();
+                        }
 
-            }
+                        SharedPreferences sharedPref =getActivity().getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt("Featured", Integer.valueOf(localTime));
+                        editor.commit();
 
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
+                    }
 
-            }
-        });
-    }
+                    @Override
+                    public void onFailure(Call<Wallpaper> call, Throwable t) {
+                        FirebaseCrash.report(new Exception(t.getMessage()));
 
-    private void getArchitectureFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_architecture), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                architectureRV.setLayoutManager(layoutManager);
-                architectureRV.setAdapter(beachAdapter);
-                getBeachFeataured();
+                    }
+                });
+            } else if (timeDiff < 6) {
+                Toast.makeText(getActivity(), "featured", Toast.LENGTH_LONG).show();
 
-            }
+                for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+                    Wallpaper_ wallpaper_ = new Wallpaper_();
 
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
+                    wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+                    wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+                    wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+                    wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+                    wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+                    wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+                    wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+                    wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+                    wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+                    wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+                    wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
 
-            }
-        });
-    }
+                    wallpapers.add(i, wallpaper_);
+                }
 
-    private void getBeachFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_beach), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                beachRV.setLayoutManager(layoutManager);
-                beachRV.setAdapter(beachAdapter);
-                getBikesFeataured();
 
             }
+        } else if (wallpaperModelRealmResults.size() == 0) {
+            API.Factory.getInstance().getFeaturedWallpapers().enqueue(new Callback<Wallpaper>()  {
 
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
+                @Override
+                public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
+                    wallpapers = response.body().getWallpaper();
 
-            }
-        });
-    }
+                    for (int i = 0; i < wallpapers.size(); i++) {
+                        realm.beginTransaction();
 
-    private void getBikesFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_bikes), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                bikesRV.setLayoutManager(layoutManager);
-                bikesRV.setAdapter(beachAdapter);
-                getBusinessFeataured();
+                        FeaturedWallpapersModel wallpaperModel = realm.createObject(FeaturedWallpapersModel.class); // Create a new object
 
-            }
+                        wallpaperModel.setCategory(wallpapers.get(i).getCategory());
+                        wallpaperModel.setDescription(wallpapers.get(i).getDescription());
+                        wallpaperModel.setDownloads(wallpapers.get(i).getDownloads());
+                        wallpaperModel.setSource(wallpapers.get(i).getSource());
+                        wallpaperModel.setLiked(wallpapers.get(i).getLiked());
+                        wallpaperModel.setPicid(wallpapers.get(i).getPicid());
+                        wallpaperModel.setPicurl(wallpapers.get(i).getPicurl());
+                        wallpaperModel.setThumb(wallpapers.get(i).getThumb());
+                        wallpaperModel.setTitle(wallpapers.get(i).getTitle());
+                        wallpaperModel.setRating(wallpapers.get(i).getRating());
+                        wallpaperModel.setViews(wallpapers.get(i).getViews());
 
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
+                        realm.commitTransaction();
+                    }
+                    Toast.makeText(getActivity(), "www"+String.valueOf(wallpapers.size()), Toast.LENGTH_SHORT).show();
+                    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt("Featured", Integer.valueOf(localTime));
+                    editor.commit();
 
-            }
-        });
-    }
+                }
 
-    private void getBusinessFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_business), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                businessRV.setLayoutManager(layoutManager);
-                businessRV.setAdapter(beachAdapter);
-                getCityFeataured();
+                @Override
+                public void onFailure(Call<Wallpaper> call, Throwable t) {
+                    FirebaseCrash.report(new Exception(t.getMessage()));
 
-            }
-
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
-
-            }
-        });
-    }
-
-    private void getCityFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_city), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                cityRV.setLayoutManager(layoutManager);
-                cityRV.setAdapter(beachAdapter);
-                getCraetiveFeataured();
-
-            }
-
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
-
-            }
-        });
-    }
-
-    private void getCraetiveFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_creative), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                creativeRV.setLayoutManager(layoutManager);
-                creativeRV.setAdapter(beachAdapter);
-                getFlowersFeataured();
-
-            }
-
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
-
-            }
-        });
-    }
-
-    private void getFlowersFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_flowers), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                flowersRV.setLayoutManager(layoutManager);
-                flowersRV.setAdapter(beachAdapter);
-                getFoodFeataured();
-
-            }
-
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
-
-            }
-        });
-    }
-
-    private void getFoodFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_food), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                foodRV.setLayoutManager(layoutManager);
-                foodRV.setAdapter(beachAdapter);
-                getGamesFeataured();
-
-            }
-
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
-
-            }
-        });
-    }
-
-    private void getGamesFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_games), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                gamesRV.setLayoutManager(layoutManager);
-                gamesRV.setAdapter(beachAdapter);
-                getMacroFeataured();
-
-            }
-
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
-
-            }
-        });
-    }
-
-    private void getMacroFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_macro), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                macroRV.setLayoutManager(layoutManager);
-                macroRV.setAdapter(beachAdapter);
-                getNatureFeataured();
-
-            }
-
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
-
-            }
-        });
-    }
-
-    private void getNatureFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_nature), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                natureRV.setLayoutManager(layoutManager);
-                natureRV.setAdapter(beachAdapter);
-                getSpaceFeataured();
-
-            }
-
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
-
-            }
-        });
-    }
-
-    private void getSpaceFeataured() {
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_space), getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
-            @Override
-            public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
-                List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
-                wallpapers = response.body().getWallpaper();
-                RecyclerAdapter beachAdapter = new RecyclerAdapter(getContext(), wallpapers, getActivity());
-                LinearLayoutManager layoutManager;
-                layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-                spaceRV.setLayoutManager(layoutManager);
-                spaceRV.setAdapter(beachAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<Wallpaper> call, Throwable t) {
-                FirebaseCrash.report(new Exception(t.getMessage()));
-
-            }
-        });
+                }
+            });
+        }
     }
 
     private void startTransection(String categoryName) {
         Intent intent = new Intent(getActivity(), CategoryActivity.class);
         intent.putExtra("category", categoryName);
-        startActivity(intent);
+        activity.startActivity(intent);
+        activity.finish();
     }
 }

@@ -22,6 +22,9 @@ public interface API {
     @GET("generatejsonv1.php?")
     Call<Wallpaper> getWallpaper(@Query("cat") String category, @Query("user") String userID);
 
+    @GET("featuredlist.php")
+    Call<Wallpaper> getFeaturedWallpapers();
+
 
 
     class Factory {
