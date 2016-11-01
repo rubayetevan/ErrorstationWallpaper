@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.errorstation.wallpaper.R;
+import com.errorstation.wallpaper.Utility;
 import com.errorstation.wallpaper.activities.CategoryActivity;
+import com.errorstation.wallpaper.adapters.RecyclerAdapter;
 import com.errorstation.wallpaper.api.API;
 import com.errorstation.wallpaper.api.Wallpaper;
 import com.errorstation.wallpaper.api.Wallpaper_;
@@ -214,9 +217,9 @@ public class FeaturedFragment extends Fragment {
 
     private void getFeatured() {
         RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).findAll();
-        Toast.makeText(getActivity(), "hii"+String.valueOf(wallpaperModelRealmResults.size()), Toast.LENGTH_SHORT).show();
+
         if (wallpaperModelRealmResults.size() > 0) {
-            if (timeDiff > 6) {
+            if (timeDiff >= Utility.UPDATE_INTERVAL) {
 
                 realm.beginTransaction();
                 wallpaperModelRealmResults.deleteAllFromRealm();
@@ -251,6 +254,8 @@ public class FeaturedFragment extends Fragment {
                         SharedPreferences.Editor editor = sharedPref.edit();
                         editor.putInt("Featured", Integer.valueOf(localTime));
                         editor.commit();
+                        wallpapers.clear();
+                        ShowDataFromDB();
 
                     }
 
@@ -260,27 +265,11 @@ public class FeaturedFragment extends Fragment {
 
                     }
                 });
-            } else if (timeDiff < 6) {
-                Toast.makeText(getActivity(), "featured", Toast.LENGTH_LONG).show();
+            } else if (timeDiff < Utility.UPDATE_INTERVAL) {
 
-                for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
-                    Wallpaper_ wallpaper_ = new Wallpaper_();
 
-                    wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
-                    wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
-                    wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
-                    wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
-                    wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
-                    wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
-                    wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
-                    wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
-                    wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
-                    wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
-                    wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
-
-                    wallpapers.add(i, wallpaper_);
-                }
-
+                wallpapers.clear();
+                ShowDataFromDB();
 
             }
         } else if (wallpaperModelRealmResults.size() == 0) {
@@ -314,7 +303,8 @@ public class FeaturedFragment extends Fragment {
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putInt("Featured", Integer.valueOf(localTime));
                     editor.commit();
-
+                    wallpapers.clear();
+                    ShowDataFromDB();
                 }
 
                 @Override
@@ -325,6 +315,462 @@ public class FeaturedFragment extends Fragment {
             });
         }
     }
+
+    private void ShowDataFromDB() {
+        ShowAbstractFeatured();
+
+    }
+
+    private void ShowAbstractFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_ABSTRACT).findAll();
+
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            abstractRV.setLayoutManager(layoutManager);
+            abstractRV.setAdapter(recyclerAdapter);
+        }
+        ShowAnimalFeatured();
+    }
+
+    private void ShowAnimalFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_ANIMALS).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            animalsRV.setLayoutManager(layoutManager);
+            animalsRV.setAdapter(recyclerAdapter);
+        }
+        ShowArchitectureFeatured();
+    }
+
+    private void ShowArchitectureFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_ARCHITECTURE).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            architectureRV.setLayoutManager(layoutManager);
+            architectureRV.setAdapter(recyclerAdapter);
+        }
+        ShowBeachFeatured();
+    }
+
+    private void ShowBeachFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_BEACH).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            beachRV.setLayoutManager(layoutManager);
+            beachRV.setAdapter(recyclerAdapter);
+        }
+        ShowBikesFeatured();
+    }
+
+    private void ShowBikesFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_BIKES).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            bikesRV.setLayoutManager(layoutManager);
+            bikesRV.setAdapter(recyclerAdapter);
+        }
+        ShowBusinessFeatured();
+
+    }
+
+    private void ShowBusinessFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_BUSINESS).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            businessRV.setLayoutManager(layoutManager);
+            businessRV.setAdapter(recyclerAdapter);
+        }
+        ShowCityFeatured();
+    }
+
+    private void ShowCityFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_CITY).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            cityRV.setLayoutManager(layoutManager);
+            cityRV.setAdapter(recyclerAdapter);
+        }
+        ShowCreativeFeatured();
+    }
+
+    private void ShowCreativeFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_CREATIVE).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            creativeRV.setLayoutManager(layoutManager);
+            creativeRV.setAdapter(recyclerAdapter);
+        }
+        ShowFlowersFeatured();
+    }
+
+    private void ShowFlowersFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_FLOWERS).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            flowersRV.setLayoutManager(layoutManager);
+            flowersRV.setAdapter(recyclerAdapter);
+        }
+        ShowFoodFeatured();
+    }
+
+    private void ShowFoodFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_FOOD).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            foodRV.setLayoutManager(layoutManager);
+            foodRV.setAdapter(recyclerAdapter);
+        }
+        ShowGamesFeatured();
+    }
+
+    private void ShowGamesFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_GAMES).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            gamesRV.setLayoutManager(layoutManager);
+            gamesRV.setAdapter(recyclerAdapter);
+        }
+        ShowMacroFeatured();
+    }
+
+    private void ShowMacroFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_MACRO).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            macroRV.setLayoutManager(layoutManager);
+            macroRV.setAdapter(recyclerAdapter);
+        }
+        ShowNatureFeatured();
+    }
+
+    private void ShowNatureFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_NATURE).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            natureRV.setLayoutManager(layoutManager);
+            natureRV.setAdapter(recyclerAdapter);
+        }
+        ShowSpaceFeatured();
+    }
+
+    private void ShowSpaceFeatured() {
+        List<Wallpaper_> wallpapers = new ArrayList<Wallpaper_>();
+        RealmResults<FeaturedWallpapersModel> wallpaperModelRealmResults = realm.where(FeaturedWallpapersModel.class).equalTo(Utility.CATEGORY, Utility.CN_SPACE).findAll();
+
+        for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
+            Wallpaper_ wallpaper_ = new Wallpaper_();
+
+            wallpaper_.setCategory(wallpaperModelRealmResults.get(i).getCategory());
+            wallpaper_.setDescription(wallpaperModelRealmResults.get(i).getDescription());
+            wallpaper_.setDownloads(wallpaperModelRealmResults.get(i).getDownloads());
+            wallpaper_.setSource(wallpaperModelRealmResults.get(i).getSource());
+            wallpaper_.setLiked(wallpaperModelRealmResults.get(i).getLiked());
+            wallpaper_.setPicid(wallpaperModelRealmResults.get(i).getPicid());
+            wallpaper_.setPicurl(wallpaperModelRealmResults.get(i).getPicurl());
+            wallpaper_.setThumb(wallpaperModelRealmResults.get(i).getThumb());
+            wallpaper_.setTitle(wallpaperModelRealmResults.get(i).getTitle());
+            wallpaper_.setRating(wallpaperModelRealmResults.get(i).getRating());
+            wallpaper_.setViews(wallpaperModelRealmResults.get(i).getViews());
+
+            wallpapers.add(i, wallpaper_);
+        }
+
+        if (wallpapers.size()>0)
+        {
+            RecyclerAdapter recyclerAdapter = new RecyclerAdapter(getContext(), wallpapers,getActivity());
+            LinearLayoutManager layoutManager; layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            spaceRV.setLayoutManager(layoutManager);
+            spaceRV.setAdapter(recyclerAdapter);
+        }
+
+    }
+
 
     private void startTransection(String categoryName) {
         Intent intent = new Intent(getActivity(), CategoryActivity.class);

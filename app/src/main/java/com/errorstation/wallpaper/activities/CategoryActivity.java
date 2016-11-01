@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.errorstation.wallpaper.R;
+import com.errorstation.wallpaper.Utility;
 import com.errorstation.wallpaper.adapters.GridAdapter;
 import com.errorstation.wallpaper.api.API;
 import com.errorstation.wallpaper.api.Wallpaper;
@@ -146,7 +147,7 @@ public class CategoryActivity extends AppCompatActivity {
                 .equalTo("category", categoryName)
                 .findAll();
         if (wallpaperModelRealmResults.size() > 0) {
-            if (timeDiff > 6) {
+            if (timeDiff >= Utility.UPDATE_INTERVAL) {
 
                 realm.beginTransaction();
                 wallpaperModelRealmResults.deleteAllFromRealm();
@@ -195,7 +196,7 @@ public class CategoryActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
                     }
                 });
-            } else if (timeDiff < 6) {
+            } else if (timeDiff < Utility.UPDATE_INTERVAL) {
                // Toast.makeText(CategoryActivity.this, "from DB", Toast.LENGTH_LONG).show();
 
                 for (int i = 0; i < wallpaperModelRealmResults.size(); i++) {
