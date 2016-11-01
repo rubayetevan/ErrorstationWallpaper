@@ -25,6 +25,14 @@ public interface API {
     @GET("featuredlist.php")
     Call<Wallpaper> getFeaturedWallpapers();
 
+    @GET("trending.php?")
+    Call<Wallpaper> getTrendingWallpaper(@Query("user") String userID);
+
+    @GET("popular.php??")
+    Call<Wallpaper> getPopularWallpaper(@Query("user") String userID);
+
+    @GET("editor.php?")
+    Call<Wallpaper> getEditorWallpaper(@Query("user") String userID);
 
 
     class Factory {

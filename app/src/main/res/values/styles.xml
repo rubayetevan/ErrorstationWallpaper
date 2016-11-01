@@ -43,6 +43,8 @@
     </style>
 
     <style name="fetauredCardView_style">
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">208dp</item>
         <item name="android:layout_marginTop">15dp</item>

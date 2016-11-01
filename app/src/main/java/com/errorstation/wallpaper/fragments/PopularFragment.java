@@ -49,12 +49,9 @@ public class PopularFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
         mFirebaseAnalytics.setAnalyticsCollectionEnabled(true);
-        /*GoogleAnalyticsData.tracker().send(new HitBuilders.EventBuilder("First Page", "Open")
-                .setLabel("Category")
-                .build());*/
         progressBar.getIndeterminateDrawable().setColorFilter(Color.parseColor("#E91E63"), android.graphics.PorterDuff.Mode.MULTIPLY);
         progressBar.setVisibility(View.VISIBLE);
-        API.Factory.getInstance().getWallpaper(getString(R.string.id_popular),getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
+        API.Factory.getInstance().getPopularWallpaper(getString(R.string.general_user)).enqueue(new Callback<Wallpaper>() {
             @Override
             public void onResponse(Call<Wallpaper> call, Response<Wallpaper> response) {
                 wallpapers = response.body().getWallpaper();
